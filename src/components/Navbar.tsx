@@ -48,6 +48,11 @@ export default function Navbar() {
     window.location.reload();
   };
 
+  // Get CV PDF URL based on current language
+  const getCVUrl = () => {
+    return '/documents/JUAN MANUEL TORRES Dev.pdf';
+  };
+
   const navLinks = [
     { label: t('nav.featured'), href: '#featured' },
     { label: t('nav.projects'), href: '#projects' },
@@ -70,6 +75,18 @@ export default function Navbar() {
             </ListItemButton>
           </ListItem>
         ))}
+        <ListItem disablePadding>
+          <ListItemButton
+            component="a"
+            href={getCVUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+            onClick={() => setDrawerOpen(false)}
+          >
+            <ListItemText primary={t('nav.downloadCV')} />
+          </ListItemButton>
+        </ListItem>
       </List>
       <Divider />
       <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, py: 2 }}>
@@ -150,6 +167,17 @@ export default function Navbar() {
                 sx={{ whiteSpace: 'nowrap' }}
               >
                 Map
+              </Button>
+
+              <Button
+                href={getCVUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                variant="outlined"
+                size="small"
+              >
+                {t('nav.downloadCV')}
               </Button>
 
               <Button variant="outlined" size="small" onClick={handleThemeToggle}>
