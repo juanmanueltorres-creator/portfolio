@@ -10,10 +10,15 @@ import {
   Box,
   useTheme,
 } from '@mui/material';
+import { pulsoProject } from '../content/projects';
+import type { SupportedLocale } from '../content/types';
 
 export default function OtherProjectsSection() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
+  const locale: SupportedLocale = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en';
+  const pulso = pulsoProject;
+  const pulsoContent = pulso.locale[locale];
 
   return (
     <Box
@@ -48,31 +53,43 @@ export default function OtherProjectsSection() {
           {t('otherProjects.title')}
         </Typography>
         <Grid container spacing={{ xs: 3, md: 5 }}>
-          {/* Google Earth Engine */}
+          {/* Pulso Público Argentina */}
           <Grid item xs={12} md={6}>
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 2, transition: 'transform 400ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 400ms ease', '&:hover': { transform: 'translateY(-4px)', boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08)' } }}>
               <CardContent sx={{ p: { xs: 3, md: 5 }, flex: '1 1 auto', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                 <Typography variant="h4" sx={{ color: 'primary.main', fontWeight: 700, mb: 1 }}>
-                  {t('otherProjects.geeApps.title')}
+                  {pulsoContent.title}
                 </Typography>
                 <Typography color="text.secondary" sx={{ mb: 2, fontSize: '1.05rem', minHeight: 44 }}>
-                  {t('otherProjects.geeApps.badge')}
+                  {pulsoContent.statusLabel} · {pulsoContent.updatedLabel}
                 </Typography>
                 <Typography sx={{ mb: 2, fontSize: '1rem', minHeight: 44 }}>
-                  Geospatial analysis using satellite data.
+                  {pulsoContent.summary}
                 </Typography>
                 <ul style={{ margin: 0, paddingLeft: 18, marginBottom: 12 }}>
-                  <li><Typography>3D Andean peaks: glaciers, hydrology, geology</Typography></li>
-                  <li><Typography>DEM-based topography & hydrography</Typography></li>
+                  {pulsoContent.features.map((feature) => (
+                    <li key={feature}>
+                      <Typography>{feature}</Typography>
+                    </li>
+                  ))}
                 </ul>
-                <Typography color="text.secondary" sx={{ fontSize: '0.95rem', mt: 'auto' }}>
-                  Tech: Google Earth Engine, Landsat/Sentinel, PostGIS
-                </Typography>
+                {pulsoContent.metaLine && (
+                  <Typography color="text.secondary" sx={{ fontSize: '0.95rem', mt: 'auto' }}>
+                    {pulsoContent.metaLine}
+                  </Typography>
+                )}
               </CardContent>
-              <CardActions sx={{ px: { xs: 3, md: 5 }, pb: 2 }}>
-                <Button size="small" href="https://github.com/InsightLaboratory/MisAplicaciones" target="_blank">
-                  View Repository →
-                </Button>
+              <CardActions sx={{ px: { xs: 3, md: 5 }, pb: 2, gap: 1, flexWrap: 'wrap' }}>
+                {pulso.links.live && (
+                  <Button size="small" href={pulso.links.live} target="_blank">
+                    {t('featured.btnLiveDemo')}
+                  </Button>
+                )}
+                {pulso.links.source && (
+                  <Button size="small" href={pulso.links.source} target="_blank">
+                    {t('featured.btnCode')}
+                  </Button>
+                )}
               </CardActions>
             </Card>
           </Grid>
