@@ -15,6 +15,7 @@ GeoPlatform proved that project-specific copy can move out of a section componen
 - Create a typed Pulso content object in `src/content/projects/pulso.ts`.
 - Export Pulso from `src/content/projects/index.ts`.
 - Generalize `ProjectContent` only as much as required so projects may omit an image and architecture groups.
+- Add an optional localized `metaLine` for compact-card context such as technology/runtime information instead of hardcoding it in a renderer.
 - Replace the stale Google Earth Engine card in `OtherProjectsSection.tsx` with Pulso.
 - Keep the existing card layout and visual styling.
 - Preserve the existing Insight Laboratory card unchanged.
@@ -62,6 +63,7 @@ export type ProjectLocaleContent = {
   updatedLabel: string;
   summary: string;
   features: string[];
+  metaLine?: string;
   imageAlt?: string;
   imageCaption?: string;
   architectureTitle?: string;
@@ -79,7 +81,7 @@ export type ProjectContent = {
 };
 ```
 
-GeoPlatform keeps all existing fields, so its renderer and visual output remain unchanged. Any renderer that uses optional fields must guard them before rendering.
+GeoPlatform keeps all existing fields, so its content remains complete. The featured renderer must narrow/guard optional image and architecture fields before using them so TypeScript stays strict and the visual output remains unchanged for GeoPlatform.
 
 ## Pulso content shape
 
@@ -88,6 +90,7 @@ Pulso will use:
 - `slug: 'pulso-publico-argentina'`
 - `status: 'live'`
 - English and Spanish title/status/summary/features
+- localized `metaLine`
 - no `image`
 - no `architecture`
 - `links.live = 'https://juanmanueltorres-creator.github.io/pulso-publico-argentina/'`
@@ -100,6 +103,8 @@ The compact feature set should communicate four things:
 3. explicit provenance / freshness / limitations;
 4. reusable public JSON contracts and evidence snapshots.
 
+The `metaLine` should summarize implementation context without overstating architecture, for example React + TypeScript + MapLibre + public JSON snapshots.
+
 ## Renderer behavior
 
 `OtherProjectsSection.tsx` will keep its current two-column card grid. The first card will stop owning Google Earth Engine copy and will instead read from `pulsoProject`.
@@ -110,7 +115,7 @@ The card should render:
 - localized status/update line;
 - localized summary;
 - localized feature bullets;
-- a compact tech/context line derived from Pulso content rather than hardcoded GEE text;
+- localized optional `metaLine` from Pulso content rather than hardcoded GEE text;
 - live-site button when `links.live` exists;
 - source button when `links.source` exists.
 
