@@ -43,63 +43,9 @@
     }
   },
   "featured": {
-    "title": "GEO-PLATFORM v3.0",
-    "statusLive": "Live • Production",
-    "statusUpdated": "Updated March 2026",
-    "projectTitle": "Production Geospatial Exploration System",
-    "description": "An end-to-end platform designed to manage, analyze, and visualize mineral exploration data in real workflows.",
-    "features": "What the system does",
-    "featureList": [
-      "Structures drillhole data in a normalized spatial database",
-      "Exposes analytical data through a FastAPI backend",
-      "Serves GeoJSON for real-time map integration",
-      "Enables interactive exploration via a React + Leaflet interface"
-    ],
     "btnLiveDemo": "Explore Live",
     "btnAPI": "API Documentation",
-    "btnCode": "View Source",
-    "stackTitle": "System Overview",
-    "backendInfra": "Backend",
-    "backendItems": [
-      "FastAPI (Python 3.11)",
-      "REST API",
-      "Connection pooling, logging, CORS"
-    ],
-    "frontendFrame": "Frontend",
-    "frontendItems": [
-      "React + TypeScript",
-      "Vite",
-      "Leaflet maps",
-      "Dashboards"
-    ],
-    "geospatialData": "Data Layer",
-    "geospatialItems": [
-      "PostgreSQL + PostGIS",
-      "Spatial queries",
-      "Normalized schema"
-    ],
-    "visualization": "Visualization",
-    "vizItems": [
-      "React-Leaflet",
-      "GeoJSON features",
-      "Interactive popups and charts"
-    ],
-    "datasetScale": "Dataset Overview",
-    "drillholes": "Drillhole dataset",
-    "samples": "Interval sampling",
-    "assays": "Assay results",
-    "apiPerf": "API Performance",
-    "endpoints": "REST Endpoints",
-    "pagination": "Pagination Support",
-    "realtime": "Real-time updates",
-    "dbModel": "Database Model",
-    "tables": "Normalized schema",
-    "postgis": "PostGIS geometries",
-    "normalized": "Interval-based modeling",
-    "frontendComp": "Frontend",
-    "hero": "Hero Section",
-    "mapExp": "Map Explorer",
-    "dataAnal": "Data Analytics"
+    "btnCode": "View Source"
   },
   "otherProjects": {
     "title": "Other Projects",
