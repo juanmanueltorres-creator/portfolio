@@ -8,9 +8,10 @@ export type ProjectLocaleContent = {
   updatedLabel: string;
   summary: string;
   features: string[];
-  imageAlt: string;
-  imageCaption: string;
-  architectureTitle: string;
+  metaLine?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+  architectureTitle?: string;
 };
 
 export type ProjectArchitectureGroup = {
@@ -29,9 +30,9 @@ export type ProjectContent = {
   slug: string;
   status: ProjectStatus;
   locale: Record<SupportedLocale, ProjectLocaleContent>;
-  image: {
+  image?: {
     src: string;
   };
-  architecture: ProjectArchitectureGroup[];
+  architecture?: ProjectArchitectureGroup[];
   links: ProjectLinks;
 };
