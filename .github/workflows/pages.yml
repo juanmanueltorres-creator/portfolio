@@ -29,8 +29,8 @@ jobs:
       - name: Install
         run: npm install --legacy-peer-deps
 
-      - name: Build
-        run: npm run build
+      - name: Build for GitHub Pages
+        run: npm run build -- --base=/portfolio/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -47,5 +47,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
 
