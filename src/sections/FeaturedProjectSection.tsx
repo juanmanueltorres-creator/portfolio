@@ -13,10 +13,15 @@ import {
   ListItemText,
   useTheme,
 } from '@mui/material';
+import { geoplatformProject } from '../content/projects';
+import type { SupportedLocale } from '../content/types';
 
 export default function FeaturedProjectSection() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
+  const locale: SupportedLocale = i18n.language.toLowerCase().startsWith('es') ? 'es' : 'en';
+  const project = geoplatformProject;
+  const content = project.locale[locale];
 
   return (
     <Box
@@ -47,63 +52,46 @@ export default function FeaturedProjectSection() {
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        {/* Project Hero Block */}
         <Box sx={{ mb: { xs: 3, md: 4 }, textAlign: 'center' }}>
           <Typography variant="h2" sx={{ fontWeight: 700, mb: 0.5 }}>
-            {t('featured.title')}
+            {content.title}
           </Typography>
           <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mb: 0.5 }}>
-            <Chip label={t('featured.statusLive')} color="success" />
-            <Chip label={t('featured.statusUpdated')} />
+            <Chip label={content.statusLabel} color="success" />
+            <Chip label={content.updatedLabel} />
           </Box>
-          <Typography variant="h5" sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto', fontWeight: 400, lineHeight: 1.3, mb: 0 }}>
-            End-to-end platform for managing, analyzing, and visualizing mineral exploration data.
+          <Typography
+            variant="h5"
+            sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto', fontWeight: 400, lineHeight: 1.3, mb: 0 }}
+          >
+            {content.summary}
           </Typography>
         </Box>
 
-        {/* Features as Product Cards (compressed) */}
         <Box sx={{ mb: { xs: 4, md: 7 } }}>
           <Grid container spacing={{ xs: 3, md: 4 }} justifyContent="center">
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
-                <CardContent sx={{ p: { xs: 3, md: 4 }, minHeight: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Typography sx={{ fontWeight: 500, textAlign: 'center', fontSize: { xs: '1rem', md: '1.08rem' } }}>
-                    Normalized drillhole database
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
-                <CardContent sx={{ p: { xs: 3, md: 4 }, minHeight: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Typography sx={{ fontWeight: 500, textAlign: 'center', fontSize: { xs: '1rem', md: '1.08rem' } }}>
-                    FastAPI backend for analytics
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
-                <CardContent sx={{ p: { xs: 3, md: 4 }, minHeight: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Typography sx={{ fontWeight: 500, textAlign: 'center', fontSize: { xs: '1rem', md: '1.08rem' } }}>
-                    Real-time GeoJSON map integration
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
-                <CardContent sx={{ p: { xs: 3, md: 4 }, minHeight: 90, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Typography sx={{ fontWeight: 500, textAlign: 'center', fontSize: { xs: '1rem', md: '1.08rem' } }}>
-                    Interactive exploration (React + Leaflet)
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+            {content.features.map((feature) => (
+              <Grid item xs={12} sm={6} md={3} key={feature}>
+                <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
+                  <CardContent
+                    sx={{
+                      p: { xs: 3, md: 4 },
+                      minHeight: 90,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Typography sx={{ fontWeight: 500, textAlign: 'center', fontSize: { xs: '1rem', md: '1.08rem' } }}>
+                      {feature}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
         </Box>
 
-        {/* Visual Block: Map + Chart (balanced proportions) */}
         <Box
           sx={{
             maxWidth: 460,
@@ -134,8 +122,8 @@ export default function FeaturedProjectSection() {
           >
             <Box
               component="img"
-              src={`${(import.meta as any).env.BASE_URL}images/map.png`}
-              alt="Drillhole spatial visualization using PostGIS and Leaflet"
+              src={`${(import.meta as any).env.BASE_URL}${project.image.src}`}
+              alt={content.imageAlt}
               sx={{
                 width: '100%',
                 height: '100%',
@@ -147,106 +135,58 @@ export default function FeaturedProjectSection() {
             />
           </Box>
           <Typography variant="body2" sx={{ color: 'text.secondary', fontStyle: 'italic', textAlign: 'center', mt: 2 }}>
-            Drillhole and assay data visualized with PostGIS, Leaflet, and custom analytics.
+            {content.imageCaption}
           </Typography>
         </Box>
 
-        {/* System Overview */}
         <Box sx={{ mb: { xs: 2, md: 3 } }}>
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 3, textAlign: 'center' }}>
-            {t('featured.stackTitle')}
+            {content.architectureTitle}
           </Typography>
           <Grid container spacing={{ xs: 3, md: 4 }} justifyContent="center">
-            {/* Backend */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
-                <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                    Backend
-                  </Typography>
-                  <List dense>
-                    <ListItem disableGutters><ListItemText primary="FastAPI (Python 3.11)" /></ListItem>
-                    <ListItem disableGutters><ListItemText primary="Connection pooling & CORS" /></ListItem>
-                    <ListItem disableGutters><ListItemText primary="Logging & analytics" /></ListItem>
-                  </List>
-                </CardContent>
-              </Card>
-            </Grid>
-            {/* Frontend */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
-                <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                    Frontend
-                  </Typography>
-                  <List dense>
-                    <ListItem disableGutters><ListItemText primary="React + TypeScript" /></ListItem>
-                    <ListItem disableGutters><ListItemText primary="Vite build system" /></ListItem>
-                    <ListItem disableGutters><ListItemText primary="Leaflet map UI" /></ListItem>
-                  </List>
-                </CardContent>
-              </Card>
-            </Grid>
-            {/* Data Layer */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
-                <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                    Data Layer
-                  </Typography>
-                  <List dense>
-                    <ListItem disableGutters><ListItemText primary="PostgreSQL + PostGIS" /></ListItem>
-                    <ListItem disableGutters><ListItemText primary="Spatial queries" /></ListItem>
-                    <ListItem disableGutters><ListItemText primary="Normalized schema" /></ListItem>
-                  </List>
-                </CardContent>
-              </Card>
-            </Grid>
-            {/* Visualization */}
-            <Grid item xs={12} sm={6} md={3}>
-              <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
-                <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
-                    Visualization
-                  </Typography>
-                  <List dense>
-                    <ListItem disableGutters><ListItemText primary="React-Leaflet map" /></ListItem>
-                    <ListItem disableGutters><ListItemText primary="GeoJSON features" /></ListItem>
-                    <ListItem disableGutters><ListItemText primary="Interactive popups & charts" /></ListItem>
-                  </List>
-                </CardContent>
-              </Card>
-            </Grid>
+            {project.architecture.map((group) => (
+              <Grid item xs={12} sm={6} md={3} key={group.key}>
+                <Card sx={{ borderRadius: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.04)', height: '100%' }}>
+                  <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                      {group.title[locale]}
+                    </Typography>
+                    <List dense>
+                      {group.items[locale].map((item) => (
+                        <ListItem disableGutters key={item}>
+                          <ListItemText primary={item} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
         </Box>
 
-        {/* Action Buttons */}
         <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: { xs: 2, md: 4 } }}>
-          <Button
-            variant="contained"
-            href="https://sanjuangeo.vercel.app/"
-            target="_blank"
-            size="large"
-            sx={{ fontWeight: 600 }}
-          >
-            {t('featured.btnLiveDemo')}
-          </Button>
-          <Button
-            variant="outlined"
-            href="https://geo-plataform.onrender.com"
-            target="_blank"
-            size="large"
-          >
-            {t('featured.btnAPI')}
-          </Button>
-          <Button
-            variant="outlined"
-            href="https://github.com/juanmanueltorres-creator/Geo_Platform"
-            target="_blank"
-            size="large"
-          >
-            {t('featured.btnCode')}
-          </Button>
+          {project.links.live && (
+            <Button
+              variant="contained"
+              href={project.links.live}
+              target="_blank"
+              size="large"
+              sx={{ fontWeight: 600 }}
+            >
+              {t('featured.btnLiveDemo')}
+            </Button>
+          )}
+          {project.links.api && (
+            <Button variant="outlined" href={project.links.api} target="_blank" size="large">
+              {t('featured.btnAPI')}
+            </Button>
+          )}
+          {project.links.source && (
+            <Button variant="outlined" href={project.links.source} target="_blank" size="large">
+              {t('featured.btnCode')}
+            </Button>
+          )}
         </Box>
       </Container>
     </Box>
