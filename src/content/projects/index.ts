@@ -1,0 +1,1 @@
+export { geoplatformProject } from './geoplatform';
