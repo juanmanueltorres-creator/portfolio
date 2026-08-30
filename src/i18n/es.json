@@ -43,63 +43,9 @@
     }
   },
   "featured": {
-    "title": "GEO-PLATFORM v3.0",
-    "statusLive": "En Producción",
-    "statusUpdated": "Actualizado Marzo 2026",
-    "projectTitle": "Sistema Geoespacial de Exploración en Producción",
-    "description": "Una plataforma integral diseñada para gestionar, analizar y visualizar datos de exploración mineral en flujos de trabajo reales.",
-    "features": "Qué hace el sistema",
-    "featureList": [
-      "Estructura datos de perforación en una base espacial normalizada",
-      "Expone datos analíticos a través de un backend FastAPI",
-      "Sirve GeoJSON para integración de mapas en tiempo real",
-      "Permite exploración interactiva mediante una interfaz React + Leaflet"
-    ],
     "btnLiveDemo": "Explorar en Vivo",
     "btnAPI": "Documentación de la API",
-    "btnCode": "Ver Código",
-    "stackTitle": "Resumen del Sistema",
-    "backendInfra": "Backend",
-    "backendItems": [
-      "FastAPI (Python 3.11)",
-      "REST API",
-      "Connection pooling, logging, CORS"
-    ],
-    "frontendFrame": "Frontend",
-    "frontendItems": [
-      "React + TypeScript",
-      "Vite",
-      "Leaflet maps",
-      "Dashboards"
-    ],
-    "geospatialData": "Capa de Datos",
-    "geospatialItems": [
-      "PostgreSQL + PostGIS",
-      "Consultas espaciales",
-      "Esquema normalizado"
-    ],
-    "visualization": "Visualización",
-    "vizItems": [
-      "React-Leaflet",
-      "Características GeoJSON",
-      "Popups y gráficos interactivos"
-    ],
-    "datasetScale": "Visión general del conjunto de datos",
-    "drillholes": "Conjunto de perforaciones",
-    "samples": "Muestreo por intervalos",
-    "assays": "Resultados de ensayos",
-    "apiPerf": "Rendimiento API",
-    "endpoints": "Endpoints REST",
-    "pagination": "Soporte de paginación",
-    "realtime": "Actualizaciones en tiempo real",
-    "dbModel": "Modelo de base de datos",
-    "tables": "Esquema normalizado",
-    "postgis": "Geometrías PostGIS",
-    "normalized": "Modelado basado en intervalos",
-    "frontendComp": "Frontend",
-    "hero": "Sección Hero",
-    "mapExp": "Explorador de Mapas",
-    "dataAnal": "Analítica de Datos"
+    "btnCode": "Ver Código"
   },
   "otherProjects": {
     "title": "Otros Proyectos",
