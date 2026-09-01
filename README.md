@@ -1,113 +1,172 @@
-# 🎯 Juan Manuel Torres - Professional Portfolio
+# Juan Manuel Torres — Portfolio
 
-**Geospatial Engineer & Full-Stack Developer**
+> **Bilingual portfolio for geospatial software, public-data products and decision technologies.**
 
-> Modern, bilingual portfolio built with React 18, Vite 5, TypeScript, and Material-UI 5. Showcasing geospatial projects and full-stack development expertise.
->
-> 🌐 **Live:** 
----
+This repository contains the current React portfolio used to present selected projects, technical capabilities and contact paths without duplicating each project's full documentation.
 
-## 🚀 Stack & Features
-
-| Category | Technologies |
-|----------|-------------|
-| ⚡ Build | Vite 5.0 — ultra-fast HMR & production builds |
-| ⚛️ UI | React 18 + TypeScript 5.2 |
-| 🎨 Components | Material-UI 5.14 + Emotion |
-| ✏️ Typography | Space Grotesk (headings) + Inter (body) via Google Fonts |
-| 🌐 i18n | react-i18next — ES/EN with localStorage persistence |
-| 🌙 Theming | Dark mode (default) / Light mode toggle |
-| 📱 Responsive | Mobile-first with hamburger menu, `clamp()` typography, adaptive padding |
-| 🚀 Hosting | GitHub Pages via `gh-pages` branch |
+**Live site:** https://juanmanueltorres-creator.github.io/portfolio/
 
 ---
 
-## 📁 Project Structure
+## What this repository is
 
-```
-portfolio-work/
-├── index.html                # Entry point (Google Fonts, meta tags)
-├── vite.config.ts            # base: '/portfolio/'
-├── package.json              # Dependencies & scripts
-├── src/
-│   ├── main.tsx              # React root
-│   ├── App.tsx               # ThemeProvider + dark mode state
-│   ├── index.css             # Global styles, scrollbar, selection
-│   ├── app/
-│   │   └── theme.ts          # Light/Dark MUI themes, shared typography
-│   ├── components/
-│   │   └── Navbar.tsx        # Responsive navbar with Drawer (mobile)
-│   ├── sections/
-│   │   ├── HeroSection.tsx
-│   │   ├── SkillsSection.tsx
-│   │   ├── FeaturedProjectSection.tsx
-│   │   ├── OtherProjectsSection.tsx
-│   │   ├── ExpertiseSection.tsx
-│   │   ├── ContactSection.tsx   # Formspree integration
-│   │   └── Footer.tsx
-│   └── i18n/
-│       ├── index.ts          # i18next config
-│       ├── es.json           # Spanish translations
-│       └── en.json           # English translations
-└── legacy/                   # Original static HTML/CSS/JS
+The portfolio is a presentation layer over project evidence that lives in the individual repositories and deployed applications.
+
+Its job is to answer a small set of questions quickly:
+
+```text
+Who is Juan?
+     ↓
+What does he build?
+     ↓
+Which projects are worth opening?
+     ↓
+Where is the underlying evidence?
 ```
 
----
-
-## 🌟 Featured Project: GEO-PLATFORM v3.0
-
-A production-ready mineral exploration platform featuring:
-
-- **Backend:** FastAPI (Python 3.11.9) deployed on Render.com
-- **Frontend:** React 18 + TypeScript deployed on Vercel
-- **Database:** PostgreSQL 15 + PostGIS 3.4+ on Supabase
-- **Geospatial:** Interactive maps, assay analytics, domain visualization
-
-| Metric | Value |
-|--------|-------|
-| Drillholes | 4 |
-| Samples | ~1,200 |
-| Assay Results | 682 |
-| API Endpoints | 9 |
-| DB Tables | 30+ |
-
-**Live Links:**
-- 🚀 [Explore Demo](https://geo-platform-axhipqo2p-juanmanueltorres-creators-projects.vercel.app)
-- 📡 [API Documentation](https://geo-plataform.onrender.com)
-- 💻 [GitHub Source](https://github.com/InsightLaboratory/Geo_Platform)
+It is intentionally different from the project repositories themselves: implementation details, validation contracts, data provenance and limitations should remain closest to the systems that actually own them.
 
 ---
 
-## 🛠️ Local Development
+## Current site structure
+
+The application currently renders:
+
+- a bilingual ES / EN navigation and content layer;
+- dark / light theme support;
+- hero and skills sections;
+- featured project presentation;
+- additional project cards;
+- expertise and contact sections;
+- reusable project-content modules under `src/content/projects/`.
+
+The content-driven project layer currently includes dedicated modules for:
+
+- **GeoPlatform**;
+- **Pulso Público Argentina**.
+
+```text
+src/content/projects/
+├── geoplatform.ts
+├── pulso.ts
+└── index.ts
+```
+
+Project-specific content is separated from the generic presentation components so additional systems can be added without hard-coding every claim into one large UI file.
+
+---
+
+## Stack
+
+`React 18` · `TypeScript 5.2` · `Vite 5` · `Material UI 5` · `i18next`
+
+The repository also uses project-specific visualization dependencies where needed, including Leaflet / React Leaflet and Recharts.
+
+---
+
+## Architecture
+
+```text
+project content
+     ↓
+src/content/projects
+     ↓
+shared presentation contracts
+     ↓
+React sections / components
+     ↓
+ES / EN presentation
+     ↓
+Vite build
+     ↓
+GitHub Pages
+```
+
+The main application composes:
+
+```text
+Navbar
+HeroSection
+SkillsSection
+FeaturedProjectSection
+OtherProjectsSection
+ExpertiseSection
+ContactSection
+Footer
+```
+
+Theme preference is stored locally in the browser.
+
+---
+
+## Run locally
 
 ```bash
-cd portfolio-work
 npm install --legacy-peer-deps
-npm run dev          # http://localhost:5173/portfolio/
+npm run dev
 ```
 
-## 🚀 Build & Deploy
+Production build:
 
 ```bash
-# 1. Build
-npm install --legacy-peer-deps
-npx tsc -b
-npx vite build
-
-# 2. Deploy to gh-pages
-# Copy dist → temp, switch to gh-pages, replace files, push, return to main
+npm run build
 ```
 
-> **Note:** GitHub Actions is currently blocked by an org billing issue. Deploy manually via the `gh-pages` branch.
+Preview the built site locally with:
+
+```bash
+npm run preview
+```
 
 ---
 
-## 📞 Contact
+## Deployment
 
-- 🔗 [GitHub](https://github.com/InsightLaboratory)
-- 💼 [LinkedIn](https://www.linkedin.com/in/juanmtorres23/)
-- 🌐 [InsightLab](https://insightlaboratory.github.io)
+The current deployment path is GitHub Pages through `.github/workflows/pages.yml`.
+
+On pushes to `main`, the workflow:
+
+```text
+checkout
+  ↓
+Node setup
+  ↓
+npm install --legacy-peer-deps
+  ↓
+Vite build with /portfolio/ base path
+  ↓
+GitHub Pages artifact
+  ↓
+deploy
+```
+
+The latest checked deployment of `main` completed successfully at:
+
+https://juanmanueltorres-creator.github.io/portfolio/
 
 ---
 
-**Last Updated:** March 2026 | **Status:** ✅ Production Ready & Live
+## Verification boundary
+
+This repository currently defines build and preview scripts but no automated application-test script in `package.json`.
+
+So the portfolio's current automated delivery evidence is the successful Vite build and GitHub Pages deployment. Behavioral and data-contract tests belong primarily to the individual product repositories linked from the site.
+
+The portfolio should not be used as the authority for changing facts such as project test counts, operational status or detailed source contracts. Those claims belong in each canonical project repository.
+
+---
+
+## Related links
+
+- **GitHub profile:** https://github.com/juanmanueltorres-creator
+- **GeoPlatform:** https://sanjuangeo.vercel.app/
+- **Pulso Público Argentina:** https://juanmanueltorres-creator.github.io/pulso-publico-argentina/
+- **LinkedIn:** https://www.linkedin.com/in/juanmtorres23/
+
+---
+
+## Maintenance rule
+
+> **The portfolio points to evidence; it should not become a second, stale source of truth.**
+
+When a project changes materially, update the project's own documentation first and keep this repository limited to the minimum presentation metadata needed to route people toward the current work.
